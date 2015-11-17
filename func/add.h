@@ -7,11 +7,14 @@
 
 namespace func {
 
-template <typename... FS>
-constexpr auto add(FS&&... fs) {
-  return reduce([](const auto& x, const auto& y) { return x + y; },
-                std::forward<FS>(fs)...);
-}
+struct {
+  template <typename... FS>
+  constexpr auto operator()(FS&&... fs) {
+    return reduce([](const auto& x, const auto& y) { return x + y; },
+                  std::forward<FS>(fs)...);
+  }
+} add;
+
 };
 
 #endif  // ADD_H
